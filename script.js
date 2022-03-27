@@ -4,10 +4,10 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const drawColor = 'hsl(210, 50%, 90%)';
+const gridColor = 'hsl(210, 50%, 90%)';
 
-ctx.fillStyle = drawColor;
-ctx.strokeStyle = drawColor;
+// ctx.fillStyle = drawColor;
+// ctx.strokeStyle = drawColor;
 
 
 const getRelationOfPoints = (origin, otherPoint) => {
@@ -83,20 +83,36 @@ const drawGrid = (canvas, gridSize = 100, pixelDistance = 1, attractor, multipli
 
 };
 
+ctx.fillStyle = gridColor;
 drawGrid(canvas, 60, 10, {x: 0, y: 0}, 0);
 
 
-canvas.onmousemove = canvas.onmousedown = canvas.onmouseup = (event) => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+canvas.onmousemove = canvas.onmousedown = canvas.onmouseup = canvas.ontouchmove = canvas.ontouchstart = canvas.ontouchend = (event) => {
+    window.requestAnimationFrame(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const mousePosition = {
-        x: event.offsetX,
-        y: event.offsetY
-    };
-
-    const mousedown = event.buttons === 1;
-
-    const multiplier = mousedown ? 1000 : 100;
-
-    drawGrid(canvas, 60, 10, mousePosition, multiplier);
+        const mousePosition = {
+            x: event.offsetX,
+            y: event.offsetY
+        };
+        
+        
+        const mousedown = event.buttons === 1;
+        
+        const multiplier = mousedown ? 1000 : 100;
+    
+        ctx.fillStyle = gridColor;
+        drawGrid(canvas, 60, 10, mousePosition, multiplier);
+    
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(
+            mousePosition.x,
+            mousePosition.y,
+            20,
+            0,
+            2 * Math.PI
+        );
+        ctx.fill();
+    });
 };

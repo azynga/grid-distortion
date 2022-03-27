@@ -10,4 +10,5 @@ body {
 #main-canvas {
     /* border: solid 2px black; */
     background-color: hsl(210, 50%, 15%);
+    cursor: none;
 }
