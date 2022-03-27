@@ -82,19 +82,42 @@ const drawGrid = (canvas, gridSize = 100, pixelDistance = 1, attractor, multipli
         ctx.closePath();
     };
     
+    let lineCount = 0;
+
     for(let i = 0; i <= canvas.height; i += gridSize) {
+        if(lineCount % 4 === 0) {
+            ctx.lineWidth = 0.5;
+        } else {
+            ctx.lineWidth = 0.1;
+        };
+
+        lineCount += 1;
         drawLine(canvas, 'horizontal', i, attractor, multiplier);
     };
+
+    ctx.lineWidth = 0.1;
     drawLine(canvas, 'horizontal', canvas.height, attractor, multiplier);
 
+    lineCount = 0;
+
     for(let i = 0; i <= canvas.width; i += gridSize) {
+        if(lineCount % 4 === 0) {
+            ctx.lineWidth = 0.5;
+        } else {
+            ctx.lineWidth = 0.1;
+        };
+        lineCount += 1;
         drawLine(canvas, 'vertical', i, attractor, multiplier);
     };
+
+    ctx.lineWidth = 0.1;
     drawLine(canvas, 'vertical', canvas.width, attractor, multiplier);
 };
 
+ctx.strokeStyle = gridColor;
+drawGrid(canvas, canvas.width / 40, 10, { x: 0, y: 0 }, 0);
 
-canvas.onmousemove = canvas.onmousedown = canvas.onmouseup = canvas.ontouchmove = canvas.ontouchstart = canvas.ontouchend = (event) => {
+canvas.onmousemove = canvas.onmousedown = canvas.onmouseup = (event) => {
     window.requestAnimationFrame(() => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
