@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 
 canvas.style.backgroundColor = 'hsl(210, 50%, 15%)';
 const gridColor = 'hsl(210, 50%, 90%)';
-
+const orbRadius = 30;
 
 const getRelationOfPoints = (origin, otherPoint) => {
     const positionDifference = {
@@ -131,14 +131,14 @@ canvas.onmousemove = canvas.onmousedown = canvas.onmouseup = (event) => {
     
         ctx.strokeStyle = gridColor;
         ctx.lineWidth = 0.5;
-        drawGrid(canvas, canvas.width / 40, 10, mousePosition, multiplier);
+        drawGrid(canvas, canvas.width / 40, 3, mousePosition, multiplier);
     
         ctx.fillStyle = canvas.style.backgroundColor;
         ctx.beginPath();
         ctx.arc(
             mousePosition.x,
             mousePosition.y,
-            22,
+            orbRadius + 2,
             0,
             2 * Math.PI
         );
@@ -150,7 +150,7 @@ canvas.onmousemove = canvas.onmousedown = canvas.onmouseup = (event) => {
         ctx.arc(
             mousePosition.x,
             mousePosition.y,
-            20,
+            orbRadius,
             0,
             2 * Math.PI
         );
