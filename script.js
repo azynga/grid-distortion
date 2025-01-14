@@ -86,9 +86,9 @@ const drawGrid = (canvas, gridSize = 100, pixelDistance = 1, attractor, multipli
 
     for(let i = 0; i <= canvas.height; i += gridSize) {
         if(lineCount % 4 === 0) {
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 1.5;
         } else {
-            ctx.lineWidth = 0.1;
+            ctx.lineWidth = 1;
         };
 
         lineCount += 1;
